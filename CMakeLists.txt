@@ -5,7 +5,7 @@ project(Application LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Use vcpkg-installed packages
+# Find vcpkg-installed packages
 find_package(fmt CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
 
@@ -13,16 +13,21 @@ find_package(raylib CONFIG REQUIRED)
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 # Link libraries
-# Raylib config from vcpkg automatically links GLFW in the correct order
 target_link_libraries(${PROJECT_NAME} PRIVATE
     fmt::fmt
     raylib
     glfw
 )
 
-# Only link system libraries if needed (mostly for static builds)
+# Platform-specific system libraries
 if(UNIX AND NOT APPLE)
+    # Linux static build needs X11, GL, etc.
     target_link_libraries(${PROJECT_NAME} PRIVATE
         X11 Xrandr Xi Xxf86vm Xinerama Xcursor GL m pthread dl
+    )
+elseif(WIN32)
+    # Windows static build needs OpenGL + GDI
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        opengl32 gdi32
     )
 endif()
