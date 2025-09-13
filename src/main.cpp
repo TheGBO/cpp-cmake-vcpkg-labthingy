@@ -3,6 +3,7 @@
 #include "WindowProperties.hpp"
 #include "imgui.h"
 #include "rlImGui.h"
+#include <vector>
 
 int main() {
     int frequency = 10;
