@@ -12,4 +12,4 @@
 
 void ProcessWaves();
 void CreateWave();
-void RunProgram();
+void RunWaveDrawingProgram();

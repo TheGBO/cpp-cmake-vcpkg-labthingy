@@ -45,10 +45,11 @@ target_link_libraries(rlImGui PUBLIC imgui raylib)
 # ----------------------
 # Application
 # ----------------------
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(Application ${SOURCES})
 
 target_include_directories(Application PRIVATE
+    src
     external/imgui
     external/rlImGui
     external/rlImGui/extras

@@ -43,7 +43,7 @@ void UpdateGuiSettings(){
     guiSettings.maxPhaseSpeed = 100.0f;
 }
 
-void RunProgram(){
+void RunWaveDrawingProgram(){
     fmt::println("INITIALIZED THE THINGAMAJACKSON");
     
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);

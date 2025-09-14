@@ -6,6 +6,7 @@
 #include "Main.hpp"
 
 int main() {
-    RunProgram();
+    //RunWaveDrawingProgram();
+    RunPointerPlayground();
     return 0;
 }
