@@ -4,3 +4,6 @@
 [submodule "external/rlImGui"]
 	path = external/rlImGui
 	url = https://github.com/raylib-extras/rlImGui
+[submodule "external/imgui-knobs"]
+	path = external/imgui-knobs
+	url = https://github.com/altschuler/imgui-knobs.git
