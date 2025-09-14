@@ -9,6 +9,11 @@ void ProcessWaves(){
     }
 }
 
+void CreateWave(){
+    waves.push_back(std::make_unique<SineWave>(120, 60, 0, 0, GREEN));
+    currentWaveIndex = waves.size()-1;
+}
+
 int main() {
     fmt::println("INITIALIZED THE THINGAMAJACKSON");
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -17,8 +22,7 @@ int main() {
     SetTargetFPS(60);
     rlImGuiSetup(true);
 
-    waves.push_back(std::make_unique<SineWave>(120, 60, 0, 0, GREEN));
-
+    CreateWave();
 
     while (!WindowShouldClose())
     {
@@ -40,11 +44,18 @@ int main() {
         ImGui::Begin("THE THINGAMAJACKSON", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
         
         if (!waves.empty()) {
-            SineWave* acWave = waves[0].get(); // raw pointer for convenience
-            ImGui::SliderFloat("Amplitude", &acWave->Amplitude(), 0.0f, GetScreenHeight() / 2.0f);
-            ImGui::SliderFloat("Frequency", &acWave->Frequency(), 0.1f, 200.0f, "%.1f", ImGuiSliderFlags_Logarithmic);
-            ImGui::SliderFloat("Phase (deg)", &acWave->Phase(), 0.0f, 360.0f);
-            ImGui::SliderFloat("Phase Speed", &acWave->PhaseSpeed(), -10.0f, 10.0f);
+            SineWave* currentWave = waves[currentWaveIndex].get(); // raw pointer for convenience
+            ImGui::SliderInt("Selected wave", &currentWaveIndex, 0, waves.size() - 1);
+            ImGui::SliderFloat("Amplitude", &currentWave->Amplitude(), 0.0f, GetScreenHeight() / 2.0f);
+            ImGui::SliderFloat("Frequency", &currentWave->Frequency(), 0.1f, 200.0f, "%.1f", ImGuiSliderFlags_Logarithmic);
+            ImGui::SliderFloat("Phase (deg)", &currentWave->Phase(), 0.0f, 360.0f);
+            ImGui::SliderFloat("Phase Speed", &currentWave->PhaseSpeed(), -10.0f, 10.0f);
+            if(ImGui::ColorEdit3("RGB", currentWave->RgbColor())){
+                currentWave->SyncColorFromRgb();
+            }
+            if(ImGui::Button("Create Wave")){
+                CreateWave();
+            }
         }
 
         ImGui::End();

@@ -8,6 +8,7 @@ private:
     float m_Frequency;
     float m_Phase;
     float m_PhaseSpeed;
+    float m_RgbBuffer[3];
     Color m_Color;
 
     std::vector<Vector2> m_WavePoints;
@@ -22,4 +23,7 @@ public:
     float& Frequency();
     float& Phase();
     float& PhaseSpeed();
+    float* RgbColor();
+
+    void SyncColorFromRgb();
 };

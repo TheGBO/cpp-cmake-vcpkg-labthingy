@@ -10,5 +10,6 @@
 #include <cmath>
 #include "SineWave.hpp"
 #include <memory>
+#include <array>
 
 #endif
