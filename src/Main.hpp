@@ -1,4 +1,5 @@
-#include "Includes.hpp"
-
-float elapsedTime = 0;
-int currentWaveIndex = 0;
+//Main.hpp
+//It is very empty, but I think this file
+//might be useful in the future somehow
+#pragma once
+#include "WaveDrawingProgram.hpp"

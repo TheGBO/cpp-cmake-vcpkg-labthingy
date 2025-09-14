@@ -1,4 +1,7 @@
+//SineWave.cpp
+//Definitions for the SineWave.hpp class
 #include "SineWave.hpp"
+
 
 SineWave::SineWave(float amplitude, float frequency, float phase, float phaseSpeed, Color color)
     : m_Amplitude(amplitude), m_Frequency(frequency),

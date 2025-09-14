@@ -1,9 +1,19 @@
+//SineWave.hpp
+//Header file for the sine wave class, the names
+//are as clear as possible, or at leas I think so.
 #pragma once
-#include "Includes.hpp"
+#include <vector>
+#include "raylib.h"
+#include <cmath>
+#include "Constants.hpp"
 
 class SineWave
 {
 private:
+    //I don't do this in other programming languages like C#, I just use
+    //camelCase for private member, however C++ has some goofy ways
+    //of handling members and it gets slightly confusing to me, so
+    //I added this m_Prefix thing to distinguish them as clearly as I could.
     float m_Amplitude;
     float m_Frequency;
     float m_Phase;

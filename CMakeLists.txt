@@ -28,8 +28,16 @@ add_library(imgui STATIC
     external/imgui/imgui_tables.cpp
     external/imgui/imgui_widgets.cpp
 )
-
 target_include_directories(imgui PUBLIC external/imgui)
+
+# ----------------------
+# imgui-knobs (external)
+# ----------------------
+add_library(imgui-knobs STATIC
+    external/imgui-knobs/imgui-knobs.cpp
+)
+target_include_directories(imgui-knobs PUBLIC external/imgui-knobs)
+target_link_libraries(imgui-knobs PUBLIC imgui)  # Link against imgui
 
 # ----------------------
 # rlImGui (external)
@@ -48,11 +56,13 @@ target_include_directories(Application PRIVATE
     external/imgui
     external/rlImGui
     external/rlImGui/extras
+    external/imgui-knobs
 )
 
 target_link_libraries(Application
     rlImGui
     imgui
+    imgui-knobs  # Add this line - link against imgui-knobs library
     ${RAYLIB_LIBRARIES}
     fmt::fmt
     m pthread dl
