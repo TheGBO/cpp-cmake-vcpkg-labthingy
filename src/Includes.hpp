@@ -9,5 +9,6 @@
 #include "Constants.hpp"
 #include <cmath>
 #include "SineWave.hpp"
+#include <memory>
 
 #endif

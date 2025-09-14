@@ -1,5 +1,14 @@
 #include "Main.hpp"
 
+std::vector<std::unique_ptr<SineWave>> waves;
+
+void ProcessWaves(){
+    for(auto& wave : waves){
+        wave->Update(elapsedTime, GetScreenWidth(), GetScreenHeight());
+        wave->Draw();
+    }
+}
+
 int main() {
     fmt::println("INITIALIZED THE THINGAMAJACKSON");
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -8,7 +17,8 @@ int main() {
     SetTargetFPS(60);
     rlImGuiSetup(true);
 
-    SineWave* acWave = new SineWave(120, 60, 0, 0, GREEN);
+    waves.push_back(std::make_unique<SineWave>(120, 60, 0, 0, GREEN));
+
 
     while (!WindowShouldClose())
     {
@@ -21,21 +31,21 @@ int main() {
         
         BeginDrawing();
         ClearBackground(BLACK);
-        
-        //generate wave points
         //draw waves and stuff
-        acWave->Update(elapsedTime, GetScreenWidth(), GetScreenHeight());
-        acWave->Draw();
+        ProcessWaves();
 
         rlImGuiBegin();
         ImGui::SetNextWindowPos(ImVec2(0, 0));
         ImGui::SetNextWindowSize(proportions);
         ImGui::Begin("THE THINGAMAJACKSON", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
         
-        ImGui::SliderFloat("Amplitude", &acWave->Amplitude(), 0.0f, GetScreenHeight() / 2.0f);
-        ImGui::SliderFloat("Frequency", &acWave->Frequency(), 0.1f, 200.0f, "%.1f", ImGuiSliderFlags_Logarithmic);
-        ImGui::SliderFloat("Phase (deg)", &acWave->Phase(), 0.0f, 360.0f);
-        ImGui::SliderFloat("Phase Speed", &acWave->PhaseSpeed(), -10.0f, 10.0f);
+        if (!waves.empty()) {
+            SineWave* acWave = waves[0].get(); // raw pointer for convenience
+            ImGui::SliderFloat("Amplitude", &acWave->Amplitude(), 0.0f, GetScreenHeight() / 2.0f);
+            ImGui::SliderFloat("Frequency", &acWave->Frequency(), 0.1f, 200.0f, "%.1f", ImGuiSliderFlags_Logarithmic);
+            ImGui::SliderFloat("Phase (deg)", &acWave->Phase(), 0.0f, 360.0f);
+            ImGui::SliderFloat("Phase Speed", &acWave->PhaseSpeed(), -10.0f, 10.0f);
+        }
 
         ImGui::End();
         rlImGuiEnd();
