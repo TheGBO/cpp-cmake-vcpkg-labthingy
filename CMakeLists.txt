@@ -5,18 +5,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ----------------------
-# Raylib (via pkg-config)
+# Raylib (via vcpkg or custom find script)
 # ----------------------
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(RAYLIB REQUIRED raylib)
-
-include_directories(${RAYLIB_INCLUDE_DIRS})
-link_directories(${RAYLIB_LIBRARY_DIRS})
+find_package(raylib CONFIG REQUIRED)
 
 # ----------------------
 # fmt (modern CMake)
 # ----------------------
-find_package(fmt REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 # ----------------------
 # imgui (external)
@@ -37,14 +33,14 @@ add_library(imgui-knobs STATIC
     external/imgui-knobs/imgui-knobs.cpp
 )
 target_include_directories(imgui-knobs PUBLIC external/imgui-knobs)
-target_link_libraries(imgui-knobs PUBLIC imgui)  # Link against imgui
+target_link_libraries(imgui-knobs PUBLIC imgui)
 
 # ----------------------
 # rlImGui (external)
 # ----------------------
 add_library(rlImGui STATIC external/rlImGui/rlImGui.cpp)
 target_include_directories(rlImGui PUBLIC external/rlImGui external/rlImGui/extras)
-target_link_libraries(rlImGui PUBLIC imgui ${RAYLIB_LIBRARIES})
+target_link_libraries(rlImGui PUBLIC imgui raylib)
 
 # ----------------------
 # Application
@@ -62,8 +58,12 @@ target_include_directories(Application PRIVATE
 target_link_libraries(Application
     rlImGui
     imgui
-    imgui-knobs  # Add this line - link against imgui-knobs library
-    ${RAYLIB_LIBRARIES}
+    imgui-knobs
+    raylib
     fmt::fmt
-    m pthread dl
 )
+
+# Only link POSIX stuff on Linux
+if(UNIX)
+    target_link_libraries(Application m pthread dl)
+endif()
