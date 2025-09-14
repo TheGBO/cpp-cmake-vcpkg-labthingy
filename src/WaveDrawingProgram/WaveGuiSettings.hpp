@@ -1,4 +1,4 @@
-//WavingDrawingSettings.hpp
+// WavingDrawingSettings.hpp
 #pragma once
 
 struct WaveGuiSettings

@@ -1,14 +1,15 @@
 // WaveDrawingProgram.hpp
 #pragma once
-#include <vector>
 #include <memory>
-#include "raylib.h"
+#include <vector>
+
 #include "SineWave.hpp"
-#include "imgui.h"
-#include "rlImGui.h"
-#include "fmt/core.h"
 #include "WaveGuiSettings.hpp"
+#include "fmt/core.h"
 #include "imgui-knobs.h"
+#include "imgui.h"
+#include "raylib.h"
+#include "rlImGui.h"
 
 void ProcessWaves();
 void CreateWave();

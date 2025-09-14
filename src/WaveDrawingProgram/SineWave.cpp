@@ -1,18 +1,22 @@
-//SineWave.cpp
-//Definitions for the SineWave.hpp class
+// SineWave.cpp
+// Definitions for the SineWave.hpp class
 #include "SineWave.hpp"
 
+SineWave::SineWave(float amplitude, float frequency, float phase,
+                   float phaseSpeed, Color color)
+    : m_Amplitude(amplitude),
+      m_Frequency(frequency),
+      m_Phase(phase),
+      m_PhaseSpeed(phaseSpeed),
+      m_Color(color)
+{
+    m_RgbBuffer[0] = m_Color.r / 255.0f;
+    m_RgbBuffer[1] = m_Color.g / 255.0f;
+    m_RgbBuffer[2] = m_Color.b / 255.0f;
+}
 
-SineWave::SineWave(float amplitude, float frequency, float phase, float phaseSpeed, Color color)
-    : m_Amplitude(amplitude), m_Frequency(frequency),
-      m_Phase(phase), m_PhaseSpeed(phaseSpeed), m_Color(color) 
-    {
-        m_RgbBuffer[0] = m_Color.r / 255.0f;
-        m_RgbBuffer[1] = m_Color.g / 255.0f;
-        m_RgbBuffer[2] = m_Color.b / 255.0f;
-    }
-
-void SineWave::Update(float elapsedTime, int screenWidth, int screenHeight, int step)
+void SineWave::Update(float elapsedTime, int screenWidth, int screenHeight,
+                      int step)
 {
     int segments = screenWidth / step;
     m_WavePoints.resize(segments + 1);
