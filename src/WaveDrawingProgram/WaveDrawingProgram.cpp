@@ -44,7 +44,7 @@ void UpdateGuiSettings()
     guiSettings.minAmplitude = 0;
     guiSettings.maxAmplitude = GetScreenHeight() / 2.0f;
     guiSettings.minFrequency = 0;
-    guiSettings.maxFrequency = 32.0f;
+    guiSettings.maxFrequency = 128.0f;
     guiSettings.minPhase = 0;
     guiSettings.maxPhase = 360.0f;
     guiSettings.minPhaseSpeed = -100.0f;

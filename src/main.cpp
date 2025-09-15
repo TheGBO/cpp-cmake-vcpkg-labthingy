@@ -7,7 +7,7 @@
 
 int main()
 {
-    // RunWaveDrawingProgram();
-    RunPointerPlayground();
+    RunWaveDrawingProgram();
+    // RunPointerPlayground();
     return 0;
 }
